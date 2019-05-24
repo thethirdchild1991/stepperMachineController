@@ -4,42 +4,16 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QMap>
-
-namespace configHelper {
-    enum configsNames{
-        speed,          //speed
-        acceleration,   //acceleration
-        dS,             //step in mm
-        SOnRotate,      //how much mm in one rotation
-        stepsOnRotate,  //how many steps in one rotation
-        N,              //driver multiplication
-        microStep       //how much mm in one microstep
-    };
-
-    using config_t = uint32_t;
-    static config_t toConfig_t( const QJsonValue& value ) { return static_cast<config_t>(value.toInt()); }
-    static configsNames toConfigName( const QString& name ) { return configsNames::speed; }
-
-}
+#include "ConfigHelper.h"
 
 using namespace configHelper;
+
 class Configs
 {    
 
 public:
-    explicit Configs( const QString& filename ){
-        QFile configsFile( filename );
-
-        if (!configsFile.open(QIODevice::ReadOnly)) {
-            qWarning("Couldn't open save file.");
-            return;
-        }
-
-        QJsonDocument configsDoc( QJsonDocument::fromJson( configsFile.readAll() ) );
-
-        parseJson(configsDoc.object());
-
+    explicit Configs( const QString& filename ) : m_filename(filename)
+    {
     }
 
     config_t speed() const { return get( configsNames::speed ); }
@@ -62,8 +36,38 @@ public:
 
 //private:
 //    config_t microStep() const { return get( configsNames::microStep ); }
-public:
+//public:
     void microStep( config_t value ) { add( configsNames::microStep, value ); }
+
+    void load(){
+        QFile configsFile( m_filename );
+
+        if (!configsFile.open(QIODevice::ReadOnly)) {
+            qWarning("Couldn't open save file.");
+            return;
+        }
+
+        QJsonDocument configsDoc( QJsonDocument::fromJson( configsFile.readAll() ) );
+
+        parseJson(configsDoc.object());
+        configsFile.close();
+    }
+    void save() const {
+        QFile configsFile( m_filename );
+
+        if (!configsFile.open(QIODevice::WriteOnly)) {
+            qWarning("Couldn't open save file.");
+            return;
+        }
+
+        QJsonObject configObject;
+
+        QJsonDocument configDoc(configObject);
+
+        configsFile.write(configDoc.toJson());
+        configsFile.close();
+
+    }
 
 
 private:
@@ -79,7 +83,12 @@ private:
         }
     }
 
+
+//    void operator>>( QJsonObject json ){}
+//    void operator<<( QJsonObject json ){}
+
     QMap<configsNames, config_t> m_configs;
+    QString m_filename;
 };
 
 #endif // CONFIGS_H
