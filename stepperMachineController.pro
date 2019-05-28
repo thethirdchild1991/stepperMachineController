@@ -16,7 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS DEBUG_IO
 
 SOURCES += \
         main.cpp \
-    Configs.cpp
+    Configs.cpp \
+    CMDs.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -25,4 +26,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     Configs.h \
-    ConfigHelper.h
+    ConfigHelper.h \
+    CMDs.h

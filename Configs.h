@@ -34,10 +34,9 @@ public:
     config_t N() const { return get( configsNames::N ); }
     void N( config_t value ) { add( configsNames::N, value ); }
 
-//private:
-//    config_t microStep() const { return get( configsNames::microStep ); }
+    config_t microStep() const { return get( configsNames::microStep ); }
 //public:
-    void microStep( config_t value ) { add( configsNames::microStep, value ); }
+//    void microStep( config_t value ) { add( configsNames::microStep, value ); }
 
     void load(){
         QFile configsFile( m_filename );

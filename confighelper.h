@@ -4,7 +4,7 @@
 #include <QJsonValue>
 #include <QMap>
 namespace configHelper {
-    enum configsNames{
+    enum class configsNames{
         speed,          //speed
         acceleration,   //acceleration
         dS,             //step in mm
