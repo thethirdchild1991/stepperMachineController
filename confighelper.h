@@ -1,18 +1,11 @@
 #ifndef CONFIGHELPER_H
 #define CONFIGHELPER_H
 
+#include "confignames.h"
 #include <QJsonValue>
 #include <QMap>
-namespace configHelper {
-    enum class configsNames{
-        speed,          //speed
-        acceleration,   //acceleration
-        dS,             //step in mm
-        SOnRotate,      //how much mm in one rotation
-        stepsOnRotate,  //how many steps in one rotation
-        N,              //driver multiplication
-        microStep       //how much mm in one microstep
-    };
+namespace CONFIGS {
+
 
     using config_t = uint32_t;
     static config_t toConfig_t( const QJsonValue& value ) { return static_cast<config_t>(value.toInt()); }

@@ -1,4 +1,5 @@
 QT -= gui
+QT += network
 
 CONFIG += c++14 console
 CONFIG -= app_bundle
@@ -17,7 +18,9 @@ DEFINES += QT_DEPRECATED_WARNINGS DEBUG_IO
 SOURCES += \
         main.cpp \
     Configs.cpp \
-    CMDs.cpp
+    CMDs.cpp \
+    server.cpp \
+    client.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -27,4 +30,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     Configs.h \
     ConfigHelper.h \
-    CMDs.h
+    CMDs.h \
+    confignames.h \
+    cmdnames.h \
+    cmdtype.h \
+    cmdabstract.h \
+    server.h \
+    client.h \
+    cmdhelper.h

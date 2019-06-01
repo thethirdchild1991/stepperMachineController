@@ -2,13 +2,13 @@
 
 using namespace CMDs;
 
-CMD::~CMD(){
+CMDAbstract::~CMDAbstract(){
 //    qDebug() << "Destructor of CMD";
 }
 
-std::unique_ptr<CMD> CMD::createCMD( CMD_t& cmd ){
+std::unique_ptr<CMDAbstract> CMDAbstract::createCMD( CMD_t& cmd ){
 
-    std::unique_ptr<CMD> p;
+    std::unique_ptr<CMDAbstract> p;
 
     switch ( cmd.first ) {
         case CMDs_NAMES::MOVE_mSTEPS    : p = std::make_unique<CMD_MOVE_mSTEPS>();  break;

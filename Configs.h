@@ -6,13 +6,13 @@
 #include <QJsonObject>
 #include "ConfigHelper.h"
 
-using namespace configHelper;
+using namespace CONFIGS;
 
-class Configs
+class ConfigsStorage
 {    
 
 public:
-    explicit Configs( const QString& filename ) : m_filename(filename)
+    explicit ConfigsStorage( const QString& filename ) : m_filename(filename)
     {
     }
 
@@ -76,8 +76,8 @@ private:
 
     void parseJson( const QJsonObject& jsonObject ){
         for( auto key : jsonObject.keys() ){
-            auto value = configHelper::toConfig_t(jsonObject.value(key));
-            auto configName = configHelper::toConfigName(key);
+            auto value = toConfig_t(jsonObject.value(key));
+            auto configName = toConfigName(key);
             add(configName, value);
         }
     }
