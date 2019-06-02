@@ -15,6 +15,9 @@ public:
     void newCMD( CMDs::CMD_t );
 
 private:
+
+    void move();
+
     Server *mServer = nullptr;
     ConfigsStorage *mConfigStorage = nullptr;
     std::unique_ptr<CMDs::CMDAbstract> mCmd = nullptr;
