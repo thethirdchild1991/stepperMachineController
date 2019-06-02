@@ -14,27 +14,23 @@ DEFINES += QT_DEPRECATED_WARNINGS DEBUG_IO
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+include(../stepperMachineCommon/common.pri)
+
+INCLUDEPATH += \
 
 SOURCES += \
-        main.cpp \
-    Configs.cpp \
-    CMDs.cpp \
-    server.cpp \
-    client.cpp
+        src/main.cpp \
+        src/server.cpp \
+        src/controller.cpp
+
+HEADERS += \
+        src/server.h \
+        src/controller.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-HEADERS += \
-    Configs.h \
-    ConfigHelper.h \
-    CMDs.h \
-    confignames.h \
-    cmdnames.h \
-    cmdtype.h \
-    cmdabstract.h \
-    server.h \
-    client.h \
-    cmdhelper.h
+
+

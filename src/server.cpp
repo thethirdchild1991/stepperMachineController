@@ -10,9 +10,7 @@ Server::Server()
 
     connect( mTCPServer, &QTcpServer::newConnection, this, &Server::onNewConnection);
 
-
     mTCPServer->listen(QHostAddress::LocalHost, 8080);
-
 }
 
 void Server::onServerStarted(){
@@ -48,6 +46,8 @@ void Server::onNewMessage(){
     CMDs::CMD_t data;
 
     in >> data;
+
+    emit newCMD(data);
 
 
     qDebug() << (data.first == CMDs::CMDs_NAMES::MOVE_mm)
