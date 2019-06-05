@@ -10,7 +10,7 @@ Server::Server()
 
     connect( mTCPServer, &QTcpServer::newConnection, this, &Server::onNewConnection);
 
-    mTCPServer->listen(QHostAddress::LocalHost, 8080);
+    mTCPServer->listen(QHostAddress::LocalHost, 8081);
 }
 
 void Server::onServerStarted(){
@@ -41,7 +41,7 @@ void Server::onNewMessage(){
     auto buffer = mTcpServerConnection->readAll();
 
     QDataStream in(&buffer, QIODevice::ReadOnly);
-    in.setVersion(QDataStream::Qt_5_11);
+    in.setVersion(QDataStream::Qt_5_9);
 
     CMDs::CMD_t data;
 
@@ -51,7 +51,7 @@ void Server::onNewMessage(){
 
 
     qDebug() << (data.first == CMDs::CMDs_NAMES::MOVE_mm)
-             << (data.second.first == CONFIGS::configsNames::microStep)
+             << (data.second.first == CONFIGS::configsNames::steps)
              << data.second.second;
 
 }

@@ -4,12 +4,15 @@
 #include "server.h"
 #include "Configs.h"
 
+
+
+
 class Controller : public QObject
 {
     Q_OBJECT
 
 public:
-    Controller();
+    Controller();    
 
     public slots:
     void newCMD( CMDs::CMD_t );
@@ -19,10 +22,10 @@ private:
     void move();
 
     Server *mServer = nullptr;
-    ConfigsStorage *mConfigStorage = nullptr;
+    std::shared_ptr<ConfigsStorage> mConfigStorage = nullptr;
     std::unique_ptr<CMDs::CMDAbstract> mCmd = nullptr;
 
-    QString mConfigPath = "";
+    storagePath_t mConfigPath = "";
 
 };
 
